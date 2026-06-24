@@ -35,10 +35,9 @@ public class Client {
         return playlists;
     }
 
-    public Playlist createPlaylist(String name) {
-    Playlist playlist = new Playlist(name, this);  
+    public void addPlaylist(Playlist playlist) { 
     playlists.add(playlist);
-    return playlist;
+    
     }
 
  
