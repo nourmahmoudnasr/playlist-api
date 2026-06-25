@@ -32,6 +32,9 @@ public class Playlist {
     public Playlist() {}
 
     public Playlist(String name, Client client) {
+        if (name == null || name.isBlank()) {
+        throw new IllegalArgumentException("Playlist name cannot be blank");
+    }
         this.name = name;
         this.client = client;
     }
@@ -49,8 +52,18 @@ public class Playlist {
         return songs; }
 
     public void setName(String name) { 
+        if (name == null || name.isBlank()) {
+        throw new IllegalArgumentException("Playlist name cannot be blank");
+    }
         this.name = name; }
 
     public void addSong(Song song) { 
         songs.add(song); }
+
+    public void removeSong(Song song) {
+        songs.remove(song);
+    }
+    public boolean containsSong(Song song) {
+    return songs.stream().anyMatch(s -> s.getId() == song.getId());
+}
 }

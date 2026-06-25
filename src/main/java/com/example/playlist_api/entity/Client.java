@@ -1,8 +1,6 @@
 package com.example.playlist_api.entity;
 
 import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name="client")
@@ -17,6 +15,9 @@ public class Client {
     public Client() {}
 
     public Client(String username) {
+        if (username == null || username.isBlank()) {
+        throw new IllegalArgumentException("Client username cannot be blank");
+    }
     this.username = username;
     }
 

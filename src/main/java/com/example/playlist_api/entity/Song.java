@@ -19,6 +19,9 @@ public class Song {
 
 
     public Song(String title, String artistName) {
+        if (title == null || title.isBlank()) {
+        throw new IllegalArgumentException("Song title cannot be blank");
+    }
         this.title = title;
         this.artistName = artistName;
     }

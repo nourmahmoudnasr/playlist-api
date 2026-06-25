@@ -1,0 +1,82 @@
+import java.util.List;
+import java.util.NoSuchElementException;
+import org.springframework.stereotype.Service;
+import com.example.playlist_api.entity.Playlist;
+import com.example.playlist_api.repository.PlaylistRepository;
+import com.example.playlist_api.service.ClientService;
+import com.example.playlist_api.service.SongService;
+import com.example.playlist_api.entity.Client;
+import com.example.playlist_api.entity.Song;
+
+
+
+@Service
+public class  PlaylistService {
+
+    private final PlaylistRepository playlistRepository;
+    private final ClientService clientService;
+    private final SongService songService;
+
+
+    public PlaylistService(PlaylistRepository playlistRepository, ClientService clientService, SongService songService) {
+        this.playlistRepository = playlistRepository;
+        this.clientService = clientService;
+        this.songService = songService;
+    }
+
+    public Playlist getPlaylistOrThrow(int id) {
+    return playlistRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Playlist not found"));
+    }   
+
+    public Playlist createPlaylist(int clientId, String name) {
+        Client client=clientService.getClientOrThrow(clientId);
+        Playlist p= new Playlist(name,client); 
+        return playlistRepository.save(p);
+        
+    }
+
+    public List<Playlist> fetchClientPlaylists(int clientId) {
+        clientService.getClientOrThrow(clientId); //to reduce ambiguity, if client doesnt have playlists it returns empty list, else if they dont exist it throws
+        return playlistRepository.findAllByClientId(clientId);
+    } 
+
+
+    public void addSongToPlaylist(int playlistId, int songId) {
+        Playlist p=getPlaylistOrThrow(playlistId);
+        Song s= songService.getSongOrThrow(songId);
+
+        if(p.containsSong(s)){
+           throw new IllegalStateException("Song already in playlist");
+        }
+
+        p.addSong(s);
+        playlistRepository.save(p);
+    }
+    public void removeSongFromPlaylist(int playlistId, int songId) {
+        Playlist p = getPlaylistOrThrow(playlistId);
+        Song s= songService.getSongOrThrow(songId);
+
+        if(!(p.containsSong(s))){
+           throw new IllegalStateException("Song not in playlist");
+        }
+
+        p.removeSong(s);
+        playlistRepository.save(p);
+
+    }
+
+    public void updatePlaylistName(int playlistId, String newName) {
+        Playlist p=getPlaylistOrThrow(playlistId);
+        p.setName(newName);
+        playlistRepository.save(p);
+    }
+
+
+    public void deletePlaylist(int playlistId) {
+        Playlist p=getPlaylistOrThrow(playlistId);
+        playlistRepository.delete(p);
+    }
+
+
+
+}
