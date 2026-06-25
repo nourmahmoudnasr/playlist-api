@@ -1,7 +1,9 @@
+package com.example.playlist_api.service;
 import java.util.NoSuchElementException;
 import com.example.playlist_api.entity.Song;
 import org.springframework.stereotype.Service;
 import com.example.playlist_api.repository.SongRepository;
+
 
 @Service
 public class  SongService {

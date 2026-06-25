@@ -1,4 +1,4 @@
-package com.example.playlist_api.dto;
+package com.example.playlist_api.dto.Request;
 
 public class CreateSongRequest {
 

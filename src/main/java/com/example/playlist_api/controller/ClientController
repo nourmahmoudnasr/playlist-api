@@ -1,8 +1,11 @@
 package com.example.playlist_api.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.playlist_api.dto.CreateClientRequest;
+import com.example.playlist_api.dto.ClientResponse;
 import com.example.playlist_api.entity.Client;
 import com.example.playlist_api.service.ClientService;
 
@@ -17,13 +20,14 @@ public class ClientController {
     }
 
     @PostMapping
-    public Client createClient(@RequestBody CreateClientRequest request) {
-        return clientService.createClient(request.getUsername());
+    public ResponseEntity<ClientResponse> createClient(@RequestBody CreateClientRequest request) {
+        Client client = clientService.createClient(request.getUsername());
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ClientResponse(client.getId(), client.getUsername()));
     }
-
     @GetMapping("/{id}")
-    public Client getClient(@PathVariable int id) {
-        return clientService.getClientOrThrow(id);
+    public ResponseEntity<ClientResponse> getClient(@PathVariable int id) {
+        Client client = clientService.getClientOrThrow(id);
+        return ResponseEntity.ok(new ClientResponse(client.getId(), client.getUsername()));
     }
 
 }
