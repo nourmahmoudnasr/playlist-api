@@ -1,0 +1,36 @@
+package com.example.playlist_api.controller;
+
+import org.springframework.web.bind.annotation.*;
+
+import com.example.playlist_api.dto.CreateSongRequest;
+import com.example.playlist_api.entity.Song;
+import com.example.playlist_api.service.SongService;
+
+@RestController
+@RequestMapping("/songs")
+public class SongController {
+
+    private final SongService songService;
+
+    public SongController(SongService songService) {
+        this.songService = songService;
+    }
+
+    @PostMapping
+    public Song createSong(@RequestBody CreateSongRequest request) {
+        return songService.createSong(
+                request.getTitle(),
+                request.getArtistName()
+        );
+    }
+
+    @GetMapping("/{id}")
+    public Song getSong(@PathVariable int id) {
+        return songService.getSongOrThrow(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteSong(@PathVariable int id) {
+        songService.deleteSong(id);
+    }
+}

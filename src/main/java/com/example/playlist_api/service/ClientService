@@ -18,16 +18,9 @@ public class  ClientService {
 
     public Client createClient(String username) {
         Client client = new Client(username);
-        clientRepository.save(client);
-        return client;
+       return  clientRepository.save(client);
+      
     }
-
-
-
-
-
-
-
 
 
 }
