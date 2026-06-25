@@ -14,9 +14,6 @@ public class Client {
     @Column(name = "username")
     private String username;
 
-    @OneToMany(mappedBy = "client")
-    private List<Playlist> playlists = new ArrayList<>();
-
     public Client() {}
 
     public Client(String username) {
@@ -35,10 +32,4 @@ public class Client {
         return playlists;
     }
 
-    public void addPlaylist(Playlist playlist) { 
-    playlists.add(playlist);
-    
-    }
-
- 
 }
