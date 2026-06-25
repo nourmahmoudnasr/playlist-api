@@ -28,8 +28,4 @@ public class Client {
         return username;
     }
 
-    public List<Playlist> getPlaylists() {
-        return playlists;
-    }
-
 }
