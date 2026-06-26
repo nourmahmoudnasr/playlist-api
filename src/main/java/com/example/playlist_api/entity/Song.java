@@ -36,4 +36,16 @@ public class Song {
     public String getArtistName() {
         return artistName;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Song)) return false;
+        Song song = (Song) o;
+        return id == song.id;
+}
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(id);
+}
 }
