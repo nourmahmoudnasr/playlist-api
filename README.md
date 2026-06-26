@@ -173,4 +173,5 @@ Controller->Service->Repository->Database
 
 Chatgpt was used throughout this project as a learning tool, it helped explain concepts, debug issues, and suggest improvements. All architectural decisions and implementation were done by me. 
 I also researched the internet for core concepts and code implemenation examples on them, only using AI to further strengthen my understanding to the concepts.
+https://chatgpt.com/share/6a3e7e2e-e958-83ea-98a0-24dae74c2078
 
