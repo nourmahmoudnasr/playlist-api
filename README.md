@@ -123,6 +123,35 @@ curl http://localhost:8080/playlists/client/1
 
 **Spring Data JPA with Hibernate** — handles table creation automatically via `ddl-auto=update`, and maps Java entities directly to database tables.
 
+## Database Schema
+
+### User
+- id (PK)
+- username
+
+### Playlist
+- id (PK)
+- name
+- user_id (FK)
+
+Relationship:
+- One User → Many Playlists (`@OneToMany` / `@ManyToOne`)
+- This is modeled by storing the primary key of the "one" side (`User.id`) as a foreign key (`user_id`) in the "many" side (`Playlist`).
+
+### Song
+- id (PK)
+- title
+- artist
+### Playlist ↔ Song
+
+Relationship:
+- Many Playlists ↔ Many Songs (`@ManyToMany`)
+- This is implemented using a junction table:
+
+playlist_song
+- playlist_id (FK)
+- song_id (FK)
+
 ## Design Patterns & Architecture
 
 The project follows a layered architecture with clear SOLID principles covered
