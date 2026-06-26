@@ -44,20 +44,23 @@ spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 spring.jpa.open-in-view=false
 ```
-
+(If no new user created, the postgres username is simply postgres)
 ## Running the Application
 
-**On Mac/Linux:**
+**On Mac/Linux**
 ```bash
 ./mvnw spring-boot:run
 ```
 
-**On Windows:**
+**Windows**
 ```bash
 mvnw.cmd spring-boot:run
 ```
 
 The app will start on `http://localhost:8080`. The database tables will be created automatically on first run.
+
+Make sure you are not inside the psql terminal when running the application. 
+If you see `playlistdb=#` or `postgres=#` in your terminal, type `\q` to exit first.
 
 ## API Endpoints
 
@@ -131,11 +134,14 @@ Controller->Service->Repository->Database
 
 **DTO Pattern** — the API contract is decoupled from internal JPA entities. Request DTOs handle incoming JSON deserialization, Response DTOs control exactly what gets serialized back to the caller. This prevents leaking JPA internals, passwords and data to the outside.
 
-**Constructor Injection** — all constraints are checked inside the constructor.
-
 **Global Exception Handler** — a single `@RestControllerAdvice` class intercepts all exceptions across every controller and maps them to appropriate HTTP status codes (`404` for not found, `400` for bad input, `409` for conflicts). This keeps error handling out of controllers and services entirely.
 
 ## Tools
 
 - **DBeaver** — used during development to visualize the database, inspect tables, and verify data after each endpoint test.
+
+## AI Usage
+
+Chatgpt was used throughout this project as a learning tool, it helped explain concepts, debug issues, and suggest improvements. All architectural decisions and implementation were done by me. 
+I also researched the internet for core concepts and code implemenation examples on them, only using AI to further strengthen my understanding to the concepts.
 
