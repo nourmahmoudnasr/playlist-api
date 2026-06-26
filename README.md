@@ -114,8 +114,28 @@ curl http://localhost:8080/playlists/client/1
 
 ## Technology Choices
 
-**Spring Boot** — standard for building REST APIs in Java, handles dependency injection, request mapping, and database integration.
+**Spring Boot** — standard for building REST APIs in Java.
 
 **PostgreSQL** — chosen for its reliability and strong support for relational data. The playlist domain has clear relationships between clients, playlists, and songs (many-to-many between playlists and songs), which maps naturally to a relational database. 
 
 **Spring Data JPA with Hibernate** — handles table creation automatically via `ddl-auto=update`, and maps Java entities directly to database tables.
+
+## Design Patterns & Architecture
+
+The project follows a layered architecture with clear SOLID principles covered
+Controller->Service->Repository->Database
+
+**Repository Pattern** — each entity has its own repository interface extending `JpaRepository`. Data access logic is fully isolated from business logic.
+
+**Service Layer Pattern** — All business logic lives in the service layer (Anemic Domain Model). 
+
+**DTO Pattern** — the API contract is decoupled from internal JPA entities. Request DTOs handle incoming JSON deserialization, Response DTOs control exactly what gets serialized back to the caller. This prevents leaking JPA internals, passwords and data to the outside.
+
+**Constructor Injection** — all constraints are checked inside the constructor.
+
+**Global Exception Handler** — a single `@RestControllerAdvice` class intercepts all exceptions across every controller and maps them to appropriate HTTP status codes (`404` for not found, `400` for bad input, `409` for conflicts). This keeps error handling out of controllers and services entirely.
+
+## Tools
+
+- **DBeaver** — used during development to visualize the database, inspect tables, and verify data after each endpoint test.
+
