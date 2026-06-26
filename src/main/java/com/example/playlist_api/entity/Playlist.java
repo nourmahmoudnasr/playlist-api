@@ -21,13 +21,13 @@ public class Playlist {
     private Client client;
 
     
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
     @JoinTable(
         name = "playlist_song",
         joinColumns = @JoinColumn(name = "playlist_id"),
         inverseJoinColumns = @JoinColumn(name = "song_id")
     )
-    private List<Song> songs = new ArrayList<>();
+private List<Song> songs = new ArrayList<>();
 
     public Playlist() {}
 

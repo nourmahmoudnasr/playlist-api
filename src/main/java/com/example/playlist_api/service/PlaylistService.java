@@ -4,8 +4,6 @@ import java.util.NoSuchElementException;
 import org.springframework.stereotype.Service;
 import com.example.playlist_api.entity.Playlist;
 import com.example.playlist_api.repository.PlaylistRepository;
-import com.example.playlist_api.service.ClientService;
-import com.example.playlist_api.service.SongService;
 import com.example.playlist_api.entity.Client;
 import com.example.playlist_api.entity.Song;
 

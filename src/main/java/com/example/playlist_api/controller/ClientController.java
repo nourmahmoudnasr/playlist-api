@@ -1,11 +1,9 @@
 package com.example.playlist_api.controller;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.example.playlist_api.dto.CreateClientRequest;
-import com.example.playlist_api.dto.ClientResponse;
+import com.example.playlist_api.dto.Request.CreateClientRequest;
+import com.example.playlist_api.dto.Response.ClientResponse;
 import com.example.playlist_api.entity.Client;
 import com.example.playlist_api.service.ClientService;
 

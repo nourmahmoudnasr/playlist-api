@@ -33,7 +33,7 @@ public class PlaylistController {
 
     @GetMapping("/client/{clientId}")
     public ResponseEntity<List<PlaylistResponse>> getClientPlaylists(@PathVariable int clientId) {
-        List<PlaylistResponse> response = playlistService.fetchClientPlaylists(clientId).stream().map(PlaylistResponse::from).toList();
+        List<PlaylistResponse> response = playlistService.fetchClientPlaylists(clientId).stream().map(PlaylistResponse::from).toList(); //converted each playlist into playlistResponse
         return ResponseEntity.ok(response);
     }
 
@@ -49,10 +49,10 @@ public class PlaylistController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/{playlistId}/songs/{songId}")
+    @PostMapping("/{playlistId}/songs/{songId}") //post as new object created in the playlist_song table
     public ResponseEntity<Void> addSongToPlaylist(@PathVariable int playlistId, @PathVariable int songId) {
         playlistService.addSongToPlaylist(playlistId, songId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().build(); //although new object is created, no content returned so no need to wrap it
     }
 
     @DeleteMapping("/{playlistId}/songs/{songId}")
